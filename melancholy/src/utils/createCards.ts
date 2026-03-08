@@ -18,7 +18,7 @@ export function createCards(pairCount: number): CardType[] {
   return shuffled.map((value, index) => ({
     id: index,
     value,
-    isFlipped: true,
+    isFlipped: false,
     isMatched: false,
   }))
 }
