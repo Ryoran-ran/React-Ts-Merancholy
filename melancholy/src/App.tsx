@@ -1,19 +1,20 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { cardsData } from "./data/cards"
+import { useState } from "react"
 import Card from "./components/Card"
+import { createCards } from "./utils/createCards"
 
 function App() {
+  const [cards, setCards] = useState(createCards(6))
+
   return (
     <div>
       <h1>神経衰弱</h1>
+
       <div>
-        {cardsData.map((card) => (
+        {cards.map((card) => (
           <Card key={card.id} card={card} />
         ))}
       </div>
+
     </div>
   )
 }
