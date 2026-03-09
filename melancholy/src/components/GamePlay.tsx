@@ -11,11 +11,16 @@ function AppGamePlay() {
 
 
     const handleCardClick = (id: number) => {
-        setCards((prev) =>
-            prev.map((c) =>
+        setCards((prev) =>{
+            //すでに2枚めくれていたら何もしない
+            const flippedCount = prev.filter((c) => c.isFlipped && !c.isMatched).length
+            if (flippedCount >= 2) return prev
+
+            return prev.map((c) =>
                 c.id === id ? { ...c, isFlipped: true } : c
             )
-        )
+        
+        })
     }
 
     return (
