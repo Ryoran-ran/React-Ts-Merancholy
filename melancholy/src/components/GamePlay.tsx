@@ -4,7 +4,7 @@ import { createCards } from "../utils/createCards"
 
 function AppGamePlay() {
   const [cards, setCards] = useState(createCards(6))
-  const [limitFliped, setLimitFliped] = useState(2)
+  const [limitFlipped] = useState(2)
   const [isChecking, setIsChecking] = useState(false)
 
 
@@ -16,7 +16,7 @@ function AppGamePlay() {
       if (!target || target.isFlipped || target.isMatched) return prev
 
       const opened = prev.filter((c) => c.isFlipped && !c.isMatched).length
-      if (opened >= limitFliped) return prev
+      if (opened >= limitFlipped) return prev
 
       return prev.map((c) => (c.id === id ? { ...c, isFlipped: true } : c))
     })
@@ -24,7 +24,7 @@ function AppGamePlay() {
 
   useEffect(() => {
     const opened = cards.filter((c) => c.isFlipped && !c.isMatched)
-    if (opened.length !== limitFliped) return
+    if (opened.length !== limitFlipped) return
 
     setIsChecking(true)
     const [a, b] = opened
