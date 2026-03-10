@@ -27,3 +27,12 @@ export function createCards(pairCount: number): CardType[] {
 export function clearCheck(cards: CardType[]){
     return cards.every((c) => c.isMatched)
 }
+
+export function turnPrev(cards: CardType[] ,isClear:boolean){
+    var allMatch: Boolean
+    allMatch = cards.every((c) => c.isMatched)
+    if(allMatch && !isClear){
+        return -1;
+    }
+    return 0;
+}

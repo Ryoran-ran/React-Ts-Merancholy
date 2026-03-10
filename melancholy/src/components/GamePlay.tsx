@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import Card from "./Card"
-import { createCards ,clearCheck } from "../utils/createCards"
+import { createCards ,clearCheck ,turnPrev } from "../utils/createCards"
 import message from "../message/ja.json"
 
 function AppGamePlay() {
@@ -27,10 +27,10 @@ function AppGamePlay() {
   useEffect(() => {
     const opened = cards.filter((c) => c.isFlipped && !c.isMatched)
     if (opened.length !== limitFlipped) return
-
+    setTurn((prev) => prev + 1)
     setIsChecking(true)
     const [a, b] = opened
-    setTurn(turn + 1)
+    
 
     if (a.value === b.value) {
       setCards((prev) =>
@@ -51,9 +51,8 @@ function AppGamePlay() {
 
   useEffect(() => {
     setIsClear(clearCheck(cards))
-    // if(isClear){
-    //   setTurn(turn - 1)
-    // }
+    setTurn((prev) => prev + turnPrev(cards, isClear))
+    
   }, [cards])
 
   return (
