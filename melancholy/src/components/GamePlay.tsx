@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
 import Card from "./Card"
 import { createCards } from "../utils/createCards"
+import message from "../message/ja.json"
 
 function AppGamePlay() {
   const [cards, setCards] = useState(createCards(6))
   const [limitFlipped] = useState(2)
   const [isChecking, setIsChecking] = useState(false)
-
+  const [turn ,setTurn] = useState(0)
 
   const handleCardClick = (id: number) => {
     if (isChecking) return
@@ -28,6 +29,7 @@ function AppGamePlay() {
 
     setIsChecking(true)
     const [a, b] = opened
+    setTurn(turn + 1)
 
     if (a.value === b.value) {
       setCards((prev) =>
@@ -47,11 +49,15 @@ function AppGamePlay() {
   }, [cards])
 
   return (
-    <div>
-      {cards.map((card) => (
-        <Card key={card.id} card={card} onClick={() => handleCardClick(card.id)} />
-      ))}
-    </div>
+    <>
+      <div>{message.play.turn}:{turn}</div>
+
+      <div>
+        {cards.map((card) => (
+          <Card key={card.id} card={card} onClick={() => handleCardClick(card.id)} />
+        ))}
+      </div>
+    </>
   )
 }
 

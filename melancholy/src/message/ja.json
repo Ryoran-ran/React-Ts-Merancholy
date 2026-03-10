@@ -3,6 +3,10 @@
         "titleMain":"神経衰弱"
     }
 
+    ,"play":{
+        "turn":"ターン"
+    }
+
     ,"card":{
         "cardBackSide":"？"
     }
