@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react"
 import Card from "./Card"
-import { createCards } from "../utils/createCards"
+import { createCards ,clearCheck } from "../utils/createCards"
 import message from "../message/ja.json"
 
 function AppGamePlay() {
   const [cards, setCards] = useState(createCards(6))
   const [limitFlipped] = useState(2)
   const [isChecking, setIsChecking] = useState(false)
-  const [turn ,setTurn] = useState(0)
+  const [turn ,setTurn] = useState(1)
+  const [isClear ,setIsClear] = useState(false)
 
   const handleCardClick = (id: number) => {
     if (isChecking) return
@@ -48,9 +49,17 @@ function AppGamePlay() {
     }
   }, [cards])
 
+  useEffect(() => {
+    setIsClear(clearCheck(cards))
+    // if(isClear){
+    //   setTurn(turn - 1)
+    // }
+  }, [cards])
+
   return (
     <>
       <div>{message.play.turn}:{turn}</div>
+      <div>{isClear ? "ゲームクリア":"挑戦中"}</div>
 
       <div>
         {cards.map((card) => (

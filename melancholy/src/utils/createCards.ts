@@ -1,6 +1,7 @@
 import { cardValues } from "../data/cards"
 import type { CardType } from "../types/Card"
 
+
 export function createCards(pairCount: number): CardType[] {
 
   // ランダムに絵柄を選ぶ
@@ -21,4 +22,8 @@ export function createCards(pairCount: number): CardType[] {
     isFlipped: false,
     isMatched: false,
   }))
+}
+
+export function clearCheck(cards: CardType[]){
+    return cards.every((c) => c.isMatched)
 }
