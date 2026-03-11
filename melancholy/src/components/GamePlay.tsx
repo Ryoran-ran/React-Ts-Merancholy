@@ -65,6 +65,20 @@ function AppGamePlay() {
           <Card key={card.id} card={card} onClick={() => handleCardClick(card.id)} />
         ))}
       </div>
+      <button
+        type="button"
+        onClick={
+          () =>{
+            setCards(createCards(6))
+            setIsChecking(false)
+            setTurn(1)
+            setIsClear(false)
+          }
+          
+        }
+      >
+        シャッフル
+      </button>
     </>
   )
 }
