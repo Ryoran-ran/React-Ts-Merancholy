@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react"
 import Card from "./Card"
-import { createCards } from "../utils/createCards"
+import { createCards ,clearCheck ,turnPrev } from "../utils/createCards"
+import message from "../message/ja.json"
 
 function AppGamePlay() {
-  const [cards, setCards] = useState(createCards(6))
+  const cardNumber = 10
+
+  const [cards, setCards] = useState(createCards(cardNumber))
   const [limitFlipped] = useState(2)
   const [isChecking, setIsChecking] = useState(false)
-
+  const [turn ,setTurn] = useState(1)
+  const [isClear ,setIsClear] = useState(false)
 
   const handleCardClick = (id: number) => {
     if (isChecking) return
@@ -25,9 +29,10 @@ function AppGamePlay() {
   useEffect(() => {
     const opened = cards.filter((c) => c.isFlipped && !c.isMatched)
     if (opened.length !== limitFlipped) return
-
+    setTurn((prev) => prev + 1)
     setIsChecking(true)
     const [a, b] = opened
+    
 
     if (a.value === b.value) {
       setCards((prev) =>
@@ -46,12 +51,37 @@ function AppGamePlay() {
     }
   }, [cards])
 
+  useEffect(() => {
+    setIsClear(clearCheck(cards))
+    setTurn((prev) => prev + turnPrev(cards, isClear))
+    
+  }, [cards])
+
   return (
-    <div>
-      {cards.map((card) => (
-        <Card key={card.id} card={card} onClick={() => handleCardClick(card.id)} />
-      ))}
-    </div>
+    <>
+      <div>{message.play.turn}:{turn}</div>
+      <div>{isClear ? message.play.gameClear: message.play.gamePlay}</div>
+
+      <div className="card-grid">
+        {cards.map((card) => (
+          <Card key={card.id} card={card} onClick={() => handleCardClick(card.id)} />
+        ))}
+      </div>
+      <button
+        type="button"
+        onClick={
+          () =>{
+            setCards(createCards(cardNumber))
+            setIsChecking(false)
+            setTurn(1)
+            setIsClear(false)
+          }
+          
+        }
+      >
+        {message.play.shuffle}
+      </button>
+    </>
   )
 }
 
