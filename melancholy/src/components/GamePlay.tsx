@@ -58,7 +58,7 @@ function AppGamePlay() {
   return (
     <>
       <div>{message.play.turn}:{turn}</div>
-      <div>{isClear ? "ゲームクリア":"挑戦中"}</div>
+      <div>{isClear ? message.play.gameClear: message.play.gamePlay}</div>
 
       <div>
         {cards.map((card) => (
@@ -77,7 +77,7 @@ function AppGamePlay() {
           
         }
       >
-        シャッフル
+        {message.play.shuffle}
       </button>
     </>
   )
