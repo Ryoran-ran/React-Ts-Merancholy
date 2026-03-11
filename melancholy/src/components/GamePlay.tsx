@@ -4,7 +4,9 @@ import { createCards ,clearCheck ,turnPrev } from "../utils/createCards"
 import message from "../message/ja.json"
 
 function AppGamePlay() {
-  const [cards, setCards] = useState(createCards(6))
+  const cardNumber = 10
+
+  const [cards, setCards] = useState(createCards(cardNumber))
   const [limitFlipped] = useState(2)
   const [isChecking, setIsChecking] = useState(false)
   const [turn ,setTurn] = useState(1)
@@ -60,7 +62,7 @@ function AppGamePlay() {
       <div>{message.play.turn}:{turn}</div>
       <div>{isClear ? message.play.gameClear: message.play.gamePlay}</div>
 
-      <div>
+      <div className="card-grid">
         {cards.map((card) => (
           <Card key={card.id} card={card} onClick={() => handleCardClick(card.id)} />
         ))}
@@ -69,7 +71,7 @@ function AppGamePlay() {
         type="button"
         onClick={
           () =>{
-            setCards(createCards(6))
+            setCards(createCards(cardNumber))
             setIsChecking(false)
             setTurn(1)
             setIsClear(false)
