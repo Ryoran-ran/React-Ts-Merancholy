@@ -4,3 +4,8 @@ export type CardType = {
   isFlipped: boolean
   isMatched: boolean
 }
+
+export type GameRule = {
+  cards: number
+  limitFlipped: number
+}

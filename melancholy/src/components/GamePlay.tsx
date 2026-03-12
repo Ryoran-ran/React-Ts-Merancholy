@@ -2,12 +2,21 @@ import { useEffect, useState } from "react"
 import Card from "./Card"
 import { createCards ,clearCheck ,turnPrev } from "../utils/createCards"
 import message from "../message/ja.json"
+import type { GameRule } from "../types/Card"
+import { useLocation } from 'react-router-dom'
+
 
 function AppGamePlay() {
-  const cardNumber = 10
+  // const navigate = useNavigate()
+
+  const location = useLocation()
+  const settings = (location.state ?? {}) as GameRule
+
+  const cardNumber = settings.cards ?? 4
 
   const [cards, setCards] = useState(createCards(cardNumber))
-  const [limitFlipped] = useState(2)
+  const [limitFlipped] = useState(settings.limitFlipped ?? 2)
+
   const [isChecking, setIsChecking] = useState(false)
   const [turn ,setTurn] = useState(1)
   const [isClear ,setIsClear] = useState(false)
