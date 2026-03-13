@@ -14,7 +14,7 @@ function AppGameMenu() {
 
     return (
         <>
-            <div>Hello world</div>
+            <div>{message.title.cardCount}</div>
             <input
                 type="number"
                 value={cards}
@@ -23,6 +23,18 @@ function AppGameMenu() {
                 min={4}
             />
             <br />
+            <br />
+
+            <div>{message.title.pairCount}</div>
+            <input
+                type="number"
+                value={limitFlipped}
+                onChange={(e) => setCards(Number(e.target.value))}
+                max={2}
+                min={2}
+            />
+            <br />
+
             <button onClick={
                 () =>
                 navigate('/play', {

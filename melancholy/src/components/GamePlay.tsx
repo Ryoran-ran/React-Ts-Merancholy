@@ -101,7 +101,7 @@ function AppGamePlay() {
             },
         })
       }>
-        メニューに戻る
+        {message.play.backMenu}
       </button>
 
 
