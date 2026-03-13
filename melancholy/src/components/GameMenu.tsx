@@ -29,7 +29,7 @@ function AppGameMenu() {
             <input
                 type="number"
                 value={limitFlipped}
-                onChange={(e) => setCards(Number(e.target.value))}
+                onChange={(e) => setLimitFlipped(Number(e.target.value))}
                 max={2}
                 min={2}
             />
