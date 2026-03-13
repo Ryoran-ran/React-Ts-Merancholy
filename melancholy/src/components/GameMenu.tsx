@@ -30,7 +30,7 @@ function AppGameMenu() {
                 type="number"
                 value={limitFlipped}
                 onChange={(e) => setLimitFlipped(Number(e.target.value))}
-                max={2}
+                max={4}
                 min={2}
             />
             <br />
