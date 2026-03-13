@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import {useLocation ,useNavigate } from 'react-router-dom'
 import type { GameRule } from "../types/Card"
+import message from "../message/ja.json"
 
 
 function AppGameMenu() {
@@ -14,6 +15,14 @@ function AppGameMenu() {
     return (
         <>
             <div>Hello world</div>
+            <input
+                type="number"
+                value={cards}
+                onChange={(e) => setCards(Number(e.target.value))}
+                max={20}
+                min={4}
+            />
+            <br />
             <button onClick={
                 () =>
                 navigate('/play', {
@@ -23,7 +32,7 @@ function AppGameMenu() {
                     },
                 })
             }>
-            ゲームスタート！
+                {message.title.gameStart}
             </button>
         </>
     )

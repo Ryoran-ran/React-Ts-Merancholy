@@ -3,12 +3,11 @@ import Card from "./Card"
 import { createCards ,clearCheck ,turnPrev } from "../utils/createCards"
 import message from "../message/ja.json"
 import type { GameRule } from "../types/Card"
-import { useLocation } from 'react-router-dom'
+import {useLocation ,useNavigate } from 'react-router-dom'
 
 
 function AppGamePlay() {
-  // const navigate = useNavigate()
-
+  const navigate = useNavigate()
   const location = useLocation()
   const settings = (location.state ?? {}) as GameRule
 
@@ -76,6 +75,7 @@ function AppGamePlay() {
           <Card key={card.id} card={card} onClick={() => handleCardClick(card.id)} />
         ))}
       </div>
+      {/* シャッフルボタン */}
       <button
         type="button"
         onClick={
@@ -90,6 +90,21 @@ function AppGamePlay() {
       >
         {message.play.shuffle}
       </button>
+
+      {/* メニューに戻るボタン */}
+      <button onClick={
+        () =>
+        navigate('/', {
+            state: {
+                cards: cardNumber,
+                limitFlipped,
+            },
+        })
+      }>
+        メニューに戻る
+      </button>
+
+
     </>
   )
 }
