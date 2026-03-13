@@ -8,4 +8,5 @@ export type CardType = {
 export type GameRule = {
   cards: number
   limitFlipped: number
+  pairMultiple: number
 }

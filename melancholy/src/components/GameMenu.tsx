@@ -11,9 +11,11 @@ function AppGameMenu() {
 
     const [cards ,setCards] = useState(settings.cards ?? 8)
     const [limitFlipped ,setLimitFlipped] = useState(settings.limitFlipped ?? 2)
+    const [pairMultiple ,setPairMultiple] = useState(settings.pairMultiple ?? 1)
 
     return (
         <>
+            {/* カード枚数 */}
             <div>{message.title.cardCount}</div>
             <input
                 type="number"
@@ -25,15 +27,30 @@ function AppGameMenu() {
             <br />
             <br />
 
+            {/* ペア数 */}
             <div>{message.title.pairCount}</div>
             <input
                 type="number"
                 value={limitFlipped}
                 onChange={(e) => setLimitFlipped(Number(e.target.value))}
-                max={2}
+                max={4}
                 min={2}
             />
             <br />
+            <br />
+
+            {/* 倍数 */}
+            <div>{message.title.pairMultiple}</div>
+            <input
+                type="number"
+                value={pairMultiple}
+                onChange={(e) => setPairMultiple(Number(e.target.value))}
+                max={2}
+                min={1}
+            />
+            <br />
+
+
 
             <button onClick={
                 () =>
@@ -41,6 +58,7 @@ function AppGameMenu() {
                     state: {
                         cards,
                         limitFlipped,
+                        pairMultiple,
                     },
                 })
             }>

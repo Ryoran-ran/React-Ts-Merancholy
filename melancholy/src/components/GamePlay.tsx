@@ -13,8 +13,10 @@ function AppGamePlay() {
 
   const cardNumber = settings.cards ?? 4
 
-  const [cards, setCards] = useState(createCards(cardNumber))
   const [limitFlipped] = useState(settings.limitFlipped ?? 2)
+  const [pairMultiple] = useState(settings.pairMultiple ?? 1)
+
+  const [cards, setCards] = useState(createCards(cardNumber ,limitFlipped * pairMultiple))
 
   const [isChecking, setIsChecking] = useState(false)
   const [turn ,setTurn] = useState(1)
@@ -36,28 +38,35 @@ function AppGamePlay() {
 
   useEffect(() => {
     const opened = cards.filter((c) => c.isFlipped && !c.isMatched)
+
     if (opened.length !== limitFlipped) return
+
     setTurn((prev) => prev + 1)
     setIsChecking(true)
-    const [a, b] = opened
-    
 
-    if (a.value === b.value) {
+    const isMatch = opened.every((card) => card.value === opened[0].value)
+
+    if (isMatch) {
       setCards((prev) =>
-        prev.map((c) => (c.id === a.id || c.id === b.id ? { ...c, isMatched: true } : c))
+        prev.map((c) =>
+          opened.some((o) => o.id === c.id) ? { ...c, isMatched: true } : c
+        )
       )
       setIsChecking(false)
     } else {
       const t = setTimeout(() => {
         setCards((prev) =>
-          prev.map((c) => (c.id === a.id || c.id === b.id ? { ...c, isFlipped: false } : c))
+          prev.map((c) =>
+            opened.some((o) => o.id === c.id) ? { ...c, isFlipped: false } : c
+          )
         )
         setIsChecking(false)
       }, 700)
 
       return () => clearTimeout(t)
     }
-  }, [cards])
+  }, [cards, limitFlipped])
+
 
   useEffect(() => {
     setIsClear(clearCheck(cards))
@@ -75,12 +84,13 @@ function AppGamePlay() {
           <Card key={card.id} card={card} onClick={() => handleCardClick(card.id)} />
         ))}
       </div>
+      <div>-------------------------------------------</div>
       {/* シャッフルボタン */}
       <button
         type="button"
         onClick={
           () =>{
-            setCards(createCards(cardNumber))
+            setCards(createCards(cardNumber ,limitFlipped * pairMultiple))
             setIsChecking(false)
             setTurn(1)
             setIsClear(false)
@@ -98,6 +108,7 @@ function AppGamePlay() {
             state: {
                 cards: cardNumber,
                 limitFlipped,
+                pairMultiple,
             },
         })
       }>
