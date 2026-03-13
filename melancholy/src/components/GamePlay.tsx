@@ -14,7 +14,9 @@ function AppGamePlay() {
   const cardNumber = settings.cards ?? 4
 
   const [limitFlipped] = useState(settings.limitFlipped ?? 2)
-  const [cards, setCards] = useState(createCards(cardNumber ,limitFlipped))
+  const [pairMultiple] = useState(settings.pairMultiple ?? 1)
+
+  const [cards, setCards] = useState(createCards(cardNumber ,limitFlipped * pairMultiple))
 
   const [isChecking, setIsChecking] = useState(false)
   const [turn ,setTurn] = useState(1)
@@ -87,7 +89,7 @@ function AppGamePlay() {
         type="button"
         onClick={
           () =>{
-            setCards(createCards(cardNumber ,limitFlipped))
+            setCards(createCards(cardNumber ,limitFlipped * pairMultiple))
             setIsChecking(false)
             setTurn(1)
             setIsClear(false)
@@ -105,6 +107,7 @@ function AppGamePlay() {
             state: {
                 cards: cardNumber,
                 limitFlipped,
+                pairMultiple,
             },
         })
       }>

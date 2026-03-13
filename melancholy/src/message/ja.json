@@ -4,6 +4,7 @@
         ,"gameStart":"ゲームスタート！"
         ,"cardCount":"カード枚数"
         ,"pairCount":"ペアの組"
+        ,"pairMultiple":"倍数"
     }
 
     ,"play":{
