@@ -1,6 +1,9 @@
 {
     "title":{
         "titleMain":"神経衰弱"
+        ,"gameStart":"ゲームスタート！"
+        ,"cardCount":"カード枚数"
+        ,"pairCount":"ペアの組"
     }
 
     ,"play":{
@@ -8,6 +11,7 @@
         ,"shuffle":"シャッフル"
         ,"gameClear":"クリア！！"
         ,"gamePlay":"挑戦中"
+        ,"backMenu":"メニューに戻る"
     }
 
     ,"card":{
