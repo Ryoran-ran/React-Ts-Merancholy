@@ -84,6 +84,7 @@ function AppGamePlay() {
           <Card key={card.id} card={card} onClick={() => handleCardClick(card.id)} />
         ))}
       </div>
+      <div>-------------------------------------------</div>
       {/* シャッフルボタン */}
       <button
         type="button"
