@@ -76,7 +76,10 @@ function AppGamePlay() {
   }, [cards])
 
   const totalCards = cards.length
-  const gridColumns = Math.min(8, Math.max(2, Math.ceil(Math.sqrt(totalCards * 1.4))))
+  const preferredColumns = Math.min(8, Math.max(2, Math.ceil(Math.sqrt(totalCards * 1.4))))
+  const gridColumns = preferredColumns % 2 === 0
+    ? preferredColumns
+    : Math.min(8, preferredColumns + 1)
   const gridRows = Math.ceil(totalCards / gridColumns)
   const gridGap = totalCards >= 30 ? "0.4rem" : totalCards >= 20 ? "0.5rem" : "0.65rem"
   const cardScale = Math.min(1, 12 / Math.max(gridColumns, gridRows))
