@@ -11,12 +11,12 @@ function AppGamePlay() {
   const location = useLocation()
   const settings = (location.state ?? {}) as GameRule
 
-  const cardNumber = settings.cards ?? 4
+  const pairCount = settings.pairCount ?? 4
 
-  const [limitFlipped] = useState(settings.limitFlipped ?? 2)
-  const [pairMultiple] = useState(settings.pairMultiple ?? 1)
+  const [flipLimit] = useState(settings.flipLimit ?? 2)
+  const [duplicateMultiplier] = useState(settings.duplicateMultiplier ?? 1)
 
-  const [cards, setCards] = useState(createCards(cardNumber ,limitFlipped * pairMultiple))
+  const [cards, setCards] = useState(createCards(pairCount ,flipLimit * duplicateMultiplier))
 
   const [isChecking, setIsChecking] = useState(false)
   const [turn ,setTurn] = useState(1)
@@ -30,7 +30,7 @@ function AppGamePlay() {
       if (!target || target.isFlipped || target.isMatched) return prev
 
       const opened = prev.filter((c) => c.isFlipped && !c.isMatched).length
-      if (opened >= limitFlipped) return prev
+      if (opened >= flipLimit) return prev
 
       return prev.map((c) => (c.id === id ? { ...c, isFlipped: true } : c))
     })
@@ -39,7 +39,7 @@ function AppGamePlay() {
   useEffect(() => {
     const opened = cards.filter((c) => c.isFlipped && !c.isMatched)
 
-    if (opened.length !== limitFlipped) return
+    if (opened.length !== flipLimit) return
 
     setTurn((prev) => prev + 1)
     setIsChecking(true)
@@ -65,7 +65,7 @@ function AppGamePlay() {
 
       return () => clearTimeout(t)
     }
-  }, [cards, limitFlipped])
+  }, [cards, flipLimit])
 
 
   useEffect(() => {
@@ -90,7 +90,7 @@ function AppGamePlay() {
         type="button"
         onClick={
           () =>{
-            setCards(createCards(cardNumber ,limitFlipped * pairMultiple))
+            setCards(createCards(pairCount ,flipLimit * duplicateMultiplier))
             setIsChecking(false)
             setTurn(1)
             setIsClear(false)
@@ -106,9 +106,9 @@ function AppGamePlay() {
         () =>
         navigate('/', {
             state: {
-                cards: cardNumber,
-                limitFlipped,
-                pairMultiple,
+                pairCount,
+                flipLimit,
+                duplicateMultiplier,
             },
         })
       }>
