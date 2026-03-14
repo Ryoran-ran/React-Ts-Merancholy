@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import type { CSSProperties } from "react"
 import Card from "./Card"
 import { createCards ,clearCheck ,turnPrev } from "../utils/createCards"
 import message from "../message/ja.json"
@@ -74,49 +75,80 @@ function AppGamePlay() {
     
   }, [cards])
 
+  const totalCards = cards.length
+  const gridColumns = Math.min(8, Math.max(2, Math.ceil(Math.sqrt(totalCards * 1.4))))
+  const gridRows = Math.ceil(totalCards / gridColumns)
+  const gridGap = totalCards >= 30 ? "0.4rem" : totalCards >= 20 ? "0.5rem" : "0.65rem"
+  const cardScale = Math.min(1, 12 / Math.max(gridColumns, gridRows))
+  const cardFontSize = `${(1.02 + cardScale * 0.7).toFixed(2)}rem`
+  const cardPadding = `${(0.2 + cardScale * 0.22).toFixed(2)}rem`
+  const cardRadius = `${Math.round(10 + cardScale * 8)}px`
+  const boardStyle = {
+    "--card-columns": gridColumns,
+    "--card-rows": gridRows,
+    "--card-gap": gridGap,
+    "--card-font-size": cardFontSize,
+    "--card-padding": cardPadding,
+    "--card-radius": cardRadius,
+  } as CSSProperties
+
   return (
-    <>
-      <div>{message.play.turn}:{turn}</div>
-      <div>{isClear ? message.play.gameClear: message.play.gamePlay}</div>
+    <main className="screen">
+      <section className="panel play-panel">
+        <div className="play-header">
+          <div className="status-card">
+            <span className="status-label">{message.play.turn}</span>
+            <strong className="status-value">{turn}</strong>
+          </div>
+          <div className="status-card">
+            <span className="status-label">Status</span>
+            <strong className="status-value">{isClear ? message.play.gameClear : message.play.gamePlay}</strong>
+          </div>
+        </div>
 
-      <div className="card-grid">
-        {cards.map((card) => (
-          <Card key={card.id} card={card} onClick={() => handleCardClick(card.id)} />
-        ))}
-      </div>
-      <div>-------------------------------------------</div>
-      {/* シャッフルボタン */}
-      <button
-        type="button"
-        onClick={
-          () =>{
-            setCards(createCards(pairCount ,flipLimit * duplicateMultiplier))
-            setIsChecking(false)
-            setTurn(1)
-            setIsClear(false)
-          }
-          
-        }
-      >
-        {message.play.shuffle}
-      </button>
+        <div className="card-grid" style={boardStyle}>
+          {cards.map((card) => (
+            <Card key={card.id} card={card} onClick={() => handleCardClick(card.id)} />
+          ))}
+        </div>
 
-      {/* メニューに戻るボタン */}
-      <button onClick={
-        () =>
-        navigate('/', {
-            state: {
-                pairCount,
-                flipLimit,
-                duplicateMultiplier,
-            },
-        })
-      }>
-        {message.play.backMenu}
-      </button>
+        <div className="action-row">
+          {/* シャッフルボタン */}
+          <button
+            className="secondary-button"
+            type="button"
+            onClick={
+              () =>{
+                setCards(createCards(pairCount ,flipLimit * duplicateMultiplier))
+                setIsChecking(false)
+                setTurn(1)
+                setIsClear(false)
+              }
+              
+            }
+          >
+            {message.play.shuffle}
+          </button>
 
-
-    </>
+          {/* メニューに戻るボタン */}
+          <button
+            className="ghost-button"
+            onClick={
+              () =>
+              navigate('/', {
+                  state: {
+                      pairCount,
+                      flipLimit,
+                      duplicateMultiplier,
+                  },
+              })
+            }
+          >
+            {message.play.backMenu}
+          </button>
+        </div>
+      </section>
+    </main>
   )
 }
 

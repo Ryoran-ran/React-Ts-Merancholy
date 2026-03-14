@@ -1,6 +1,8 @@
 {
     "title":{
         "titleMain":"神経衰弱"
+        ,"titleSub":"Memory Game"
+        ,"gameRule":"ルールを決めて、プレイ画面へ進みます。"
         ,"gameStart":"ゲームスタート！"
         ,"cardCount":"カード枚数"
         ,"pairCount":"ペアの組"
