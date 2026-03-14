@@ -7,8 +7,14 @@ type CardProps = {
 }
 
 function Card({ card , onClick }: CardProps) {
+  const cardStateClass = card.isMatched
+    ? "card-button is-matched"
+    : card.isFlipped
+      ? "card-button is-flipped"
+      : "card-button"
+
   return (
-    <button onClick={onClick}>
+    <button className={cardStateClass} onClick={onClick}>
       {card.isFlipped || card.isMatched ? card.value : texts.card.cardBackSide}
     </button>
   )
