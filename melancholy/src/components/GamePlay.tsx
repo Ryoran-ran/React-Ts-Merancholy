@@ -106,6 +106,7 @@ function AppGamePlay() {
           </div>
         </div>
 
+        {/* カード */}
         <div className="card-grid" style={boardStyle}>
           {cards.map((card) => (
             <Card key={card.id} card={card} onClick={() => handleCardClick(card.id)} />

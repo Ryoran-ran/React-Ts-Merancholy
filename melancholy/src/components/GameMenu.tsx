@@ -61,6 +61,7 @@ function AppGameMenu() {
                     </label>
                 </div>
 
+                {/* ゲームスタート */}
                 <button
                     className="primary-button"
                     onClick={
