@@ -9,9 +9,9 @@ function AppGameMenu() {
     const location = useLocation()
     const settings = (location.state ?? {}) as GameRule
 
-    const [cards ,setCards] = useState(settings.cards ?? 8)
-    const [limitFlipped ,setLimitFlipped] = useState(settings.limitFlipped ?? 2)
-    const [pairMultiple ,setPairMultiple] = useState(settings.pairMultiple ?? 1)
+    const [pairCount ,setPairCount] = useState(settings.pairCount ?? 8)
+    const [flipLimit ,setFlipLimit] = useState(settings.flipLimit ?? 2)
+    const [duplicateMultiplier ,setDuplicateMultiplier] = useState(settings.duplicateMultiplier ?? 1)
 
     return (
         <>
@@ -19,8 +19,8 @@ function AppGameMenu() {
             <div>{message.title.cardCount}</div>
             <input
                 type="number"
-                value={cards}
-                onChange={(e) => setCards(Number(e.target.value))}
+                value={pairCount}
+                onChange={(e) => setPairCount(Number(e.target.value))}
                 max={20}
                 min={4}
             />
@@ -31,8 +31,8 @@ function AppGameMenu() {
             <div>{message.title.pairCount}</div>
             <input
                 type="number"
-                value={limitFlipped}
-                onChange={(e) => setLimitFlipped(Number(e.target.value))}
+                value={flipLimit}
+                onChange={(e) => setFlipLimit(Number(e.target.value))}
                 max={4}
                 min={2}
             />
@@ -43,8 +43,8 @@ function AppGameMenu() {
             <div>{message.title.pairMultiple}</div>
             <input
                 type="number"
-                value={pairMultiple}
-                onChange={(e) => setPairMultiple(Number(e.target.value))}
+                value={duplicateMultiplier}
+                onChange={(e) => setDuplicateMultiplier(Number(e.target.value))}
                 max={2}
                 min={1}
             />
@@ -56,9 +56,9 @@ function AppGameMenu() {
                 () =>
                 navigate('/play', {
                     state: {
-                        cards,
-                        limitFlipped,
-                        pairMultiple,
+                        pairCount,
+                        flipLimit,
+                        duplicateMultiplier,
                     },
                 })
             }>
