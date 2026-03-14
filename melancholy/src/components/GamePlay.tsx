@@ -104,7 +104,7 @@ function AppGamePlay() {
             <strong className="status-value">{turn}</strong>
           </div>
           <div className="status-card">
-            <span className="status-label">Status</span>
+            <span className="status-label">{message.play.gameStatus}</span>
             <strong className="status-value">{isClear ? message.play.gameClear : message.play.gamePlay}</strong>
           </div>
         </div>
